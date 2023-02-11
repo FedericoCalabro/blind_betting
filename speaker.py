@@ -9,7 +9,6 @@ class Speaker(Thread):
         self.engine = None #l'inizializzazione qui non funge idk why
         self.should_run = True
         Thread.__init__(self)
-        self.start()
 
     def onStart(self, name):
         return

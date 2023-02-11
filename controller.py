@@ -3,7 +3,7 @@ from match_info import MatchInfo
 from speaker import Speaker
 from pynput.keyboard import Listener, Key, KeyCode
 from enum import Enum
-
+import time
 
 class Menu(Enum):
     UNITIALIZED = ""
@@ -22,12 +22,15 @@ class Controller:
         self.current_lega : str | None = None
         self.current_match : MatchInfo | None = None
         self.current_options = []
+        self.speaker.start()
         self.start()
 
     def start(self):
         nazioni = self.grouper.get_nazioni()
         if len(nazioni) == 0:
             self.speaker.speak(['Oggi non ci sono partite'])
+            time.sleep(5)
+            self.speaker.speak(['exit'])
         else:
             self.listener = Listener(on_press=self.__on_press)
             self.listener.start()
