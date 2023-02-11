@@ -51,8 +51,6 @@ class Controller:
         elif key == Key.space:
             self.__on_Key_space()
 
-        
-
     def __on_Key_esc(self):
         self.listener.stop()
         self.speaker.speak(['exit'])
@@ -116,7 +114,7 @@ class Controller:
         self.speaker.speak(self.__get_to_speak())
 
     def __on_Key_space(self):
-        pass
+        self.speaker.speak(self.__get_to_speak())
 
     def __get_next(self, current_selection) -> str | MatchInfo:
         idx = self.current_options.index(current_selection)

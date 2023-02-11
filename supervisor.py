@@ -18,7 +18,7 @@ class PalinsestoSupervisor:
             return True
 
     def update_last_downloaded(self):
-        config = {"last_updated" : str(datetime.now())}
+        config = {"last_downloaded" : str(datetime.now())}
         json_to_write = json.dumps(config, indent=4)
         with open(CONFIG_PATH, 'w') as file:
             file.write(json_to_write)

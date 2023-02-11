@@ -1,5 +1,6 @@
 dist
 build
-__pychace__
+__pycache__
+config.json
 palinsesto.csv
 palinsesto.pdf
