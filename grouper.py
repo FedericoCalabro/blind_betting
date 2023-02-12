@@ -9,17 +9,17 @@ class Grouper:
         self.__add_lowest_quotes_between(KEY='Cerca tra tutte le partite', min="1.10", max="1.40", n=10, casa=True, ospite=True)
         self.__add_lowest_quotes_between(KEY='Cerca tra tutte le partite', min="1.30", max="1.60", n=10, casa=True, ospite=True)
         self.__add_lowest_quotes_between(KEY='Cerca tra tutte le partite', min="1.50", max="1.80", n=10, casa=True, ospite=True)
-        self.__add_lowest_quotes_between(KEY='Cerca tra tutte le partite', min="1.80", max="100", n=10, casa=True, ospite=True)
+        self.__add_lowest_quotes_between(KEY='Cerca tra tutte le partite', min="1.80", max="999", n=10, casa=True, ospite=True)
         
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite in casa', min="1.10", max="1.40", n=10, casa=True, ospite=False)
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite in casa', min="1.30", max="1.60", n=10, casa=True, ospite=False)
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite in casa', min="1.50", max="1.80", n=10, casa=True, ospite=False)
-        self.__add_lowest_quotes_between(KEY='Cerca tra le partite in casa', min="1.80", max="100", n=10, casa=True, ospite=False)
+        self.__add_lowest_quotes_between(KEY='Cerca tra le partite in casa', min="1.80", max="999", n=10, casa=True, ospite=False)
         
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite fuori casa', min="1.10", max="1.40", n=10, casa=False, ospite=True)
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite fuori casa', min="1.30", max="1.60", n=10, casa=False, ospite=True)
         self.__add_lowest_quotes_between(KEY='Cerca tra le partite fuori casa', min="1.50", max="1.80", n=10, casa=False, ospite=True)
-        self.__add_lowest_quotes_between(KEY='Cerca tra le partite fuori casa', min="1.80", max="100", n=10, casa=False, ospite=True)
+        self.__add_lowest_quotes_between(KEY='Cerca tra le partite fuori casa', min="1.80", max="999", n=10, casa=False, ospite=True)
 
         self.__add_palinsesto(KEY="Palinsesto")
 
@@ -35,7 +35,7 @@ class Grouper:
     
     def __add_lowest_quotes_between(self, KEY : str, min : str, max : str, n : int, casa : bool, ospite : bool):
 
-        df = self.__master.matches_with_quotes_between(min, max, casa, ospite)
+        df = self.__master.matches_with_quotes_between(float(min), float(max), casa, ospite)
         matches = QueryMaster.df_to_matches(df)[:n]
 
         if len(matches) <= 0:
