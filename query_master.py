@@ -14,6 +14,18 @@ class QueryMaster:
         queried = df.query(query)
         self.__debug(f"query: '{query}'", queried)
         return queried
+
+    def matches_with_quotes_between(self, min : str, max : str, casa : bool, ospite : bool, df = None) -> pd.DataFrame:
+        if casa == True and ospite == True:
+            QUERY = f"({CSV.UNO} >= '{min}' & {CSV.UNO} <= '{max}') | ({CSV.DUE} >= '{min}' & {CSV.DUE} <= '{max}')"
+        elif casa == True and ospite == False:
+            QUERY = f"{CSV.UNO} >= '{min}' & {CSV.UNO} <= '{max}'"
+        elif casa == False and ospite == True:
+            QUERY = f"{CSV.DUE} >= '{min}' & {CSV.DUE} <= '{max}'"
+        else:
+            raise Exception('casa and ospite should be valorized')
+            
+        return self.search(QUERY, df)
     
     def searchOnColumn(self, col, op, value, df = None) -> pd.DataFrame:
         QUERY = f"{col} {op} '{value}'"

@@ -12,7 +12,6 @@ class Constants:
         "BEL": "Belgio",
         "CZE": "Repubblica Ceca",
         "GRE": "Grecia",
-        "ISR": "Israele",
         "TUR": "Turchia",
         "OTH": "Altro"
     }
@@ -29,7 +28,6 @@ class Constants:
         "Belgio",
         "Repubblica Ceca",
         "Grecia",
-        "Israele",
         "Turchia",
         # "Altro",
     ]
@@ -54,12 +52,11 @@ class Constants:
 
 
 class CSV:
-    #CSV COLUMNS NAMES
     NAZIONE = "Nazione"
     LEGA = "Lega"
     DATA = "Data"
     ORA = "Ora"
     MATCH = "Match"
-    UNO = "1"
-    IX = "X"
-    DUE = "2"
+    UNO = "Uno"
+    IX = "Ix"
+    DUE = "Due"
