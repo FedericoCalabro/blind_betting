@@ -34,7 +34,7 @@ class Speaker(Thread):
                 engine.setProperty('voice', voice.id)
                 break
         #speed
-        engine.setProperty('rate', 110)
+        engine.setProperty('rate', 125)
         return engine
 
     def speak(self, texts : list[str]):

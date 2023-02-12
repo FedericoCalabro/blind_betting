@@ -72,7 +72,7 @@ class Controller:
             self.current_selection = self.current_lega
             self.current_menu = Menu.LEGA
 
-        self.speaker.speak([str(self.current_menu.value), *self.__get_to_speak()])
+        self.speaker.speak([str(self.current_menu.value), *self.__get_to_speak(space=False)])
 
     def __on_Key_up(self):
         if self.current_menu == Menu.NAZIONE:
@@ -85,7 +85,7 @@ class Controller:
             self.current_match = self.__get_prev(self.current_match)
             self.current_selection = self.current_match
 
-        self.speaker.speak(self.__get_to_speak())
+        self.speaker.speak(self.__get_to_speak(space=False))
 
     def __on_Key_right(self):
         if self.current_menu == Menu.NAZIONE:
@@ -101,7 +101,7 @@ class Controller:
             self.current_selection = self.current_match
             self.current_menu = Menu.MATCH
 
-        self.speaker.speak([str(self.current_menu.value), *self.__get_to_speak()])
+        self.speaker.speak([str(self.current_menu.value), *self.__get_to_speak(space=False)])
 
     def __on_Key_down(self):
         if self.current_menu == Menu.NAZIONE:
@@ -114,10 +114,10 @@ class Controller:
             self.current_match = self.__get_next(self.current_match)
             self.current_selection = self.current_match
 
-        self.speaker.speak(self.__get_to_speak())
+        self.speaker.speak(self.__get_to_speak(space=False))
 
     def __on_Key_space(self):
-        self.speaker.speak(self.__get_to_speak())
+        self.speaker.speak(self.__get_to_speak(space=True))
 
     def __get_next(self, current_selection) -> str | MatchInfo:
         idx = self.current_options.index(current_selection)
@@ -127,7 +127,10 @@ class Controller:
         idx = self.current_options.index(current_selection)
         return self.current_options[(idx - 1) % len(self.current_options)]
     
-    def __get_to_speak(self) -> list[str]:
+    def __get_to_speak(self, space : bool) -> list[str]:
         if isinstance(self.current_selection, MatchInfo):
-            return self.current_selection.readable()
+            if space==True:
+                return self.current_selection.readable()
+            else:
+                return [str(self.current_selection.match)]
         return [str(self.current_selection)]
