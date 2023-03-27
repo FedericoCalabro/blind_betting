@@ -27,6 +27,7 @@ class PalinsestoTransformer:
         self.__sub_re_with_csv_like(r"[a-zA-Z].*?(?=\s\d+\,\d{2})")
         self.__main_quotes_csv_like()
         self.__add_country_and_division()
+        self.__line = self.__line.replace("'",'')
         self.__line = self.__line.replace('�','')
     
     def __can_add(self):
