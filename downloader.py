@@ -10,25 +10,36 @@ class PalisenstoDownloader:
         if supervisor.should_download():
             try:
                 response = requests.get(DOWNLOAD_URL, headers=self.__get_fake_headers(), timeout=120, stream=True)
-                file = open(DOWNLOAD_PATH, 'wb')
-                file.write(response.content)
+                response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+                with open(DOWNLOAD_PATH, 'wb') as file:
+                  for chunk in response.iter_content(chunk_size=8192): # Download chunk by chunk
+                      file.write(chunk)
                 supervisor.update_last_downloaded()
+            except requests.exceptions.Timeout as err:
+                print(f"Download timed out: {err}")
+                raise
+            except requests.exceptions.RequestException as err:
+                print(f"An error occurred during the download: {err}")
+                raise
             except Exception as err:
-                raise Exception(err)
+                print(f"An unexpected error occurred: {err}")
+                raise
     
     
-    def __get_fake_headers(self):
-        return {
-            'Accept': '*/*', 
-            'Connection': 'keep-alive', 
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36', 
-            'Accept-Language': 'en-US;q=0.5,en;q=0.3', 
-            'Cache-Control': 'max-age=0', 
-            'DNT': '1', 
-            'Upgrade-Insecure-Requests': '1'
-        }
-        mocker = Headers(browser="chrome", os="win", headers=True)
-        mocked = mocker.generate()
-        print(mocked)
-        return mocked
+    def __get_fake_headers(self, generate_random = False):
+        if not generate_random:
+            return {
+                "sec-ch-ua": "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"macOS\"",
+                "upgrade-insecure-requests": "1",
+                "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+                "accept-encoding": "gzip, deflate, br, zstd",
+                "accept-language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
+                "cache-control": "max-age=0",
+            }
+        else:
+            mocker = Headers(browser="chrome", os="win", headers=True)
+            mocked = mocker.generate()
+            return mocked
     
