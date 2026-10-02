@@ -1,0 +1,43 @@
+[project]
+name = "blind-betting"
+version = "2.0.0"
+description = "Reads Sisal's daily football odds aloud, navigable with the arrow keys alone."
+readme = "README.md"
+authors = [{ name = "Federico Calabrò" }]
+requires-python = ">=3.12"
+dependencies = [
+    "curl-cffi>=0.16.3",
+    "pdfplumber>=0.11.10",
+    "platformdirs>=4.12.2",
+    "pynput>=1.8.2",
+    "pyttsx3>=2.99; sys_platform != 'darwin'",
+    "rich>=15.0.0",
+    "typer>=0.27.2",
+]
+
+[project.scripts]
+blind-betting = "blind_betting.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[dependency-groups]
+build = [
+    "pyinstaller>=6.22.3",
+]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]

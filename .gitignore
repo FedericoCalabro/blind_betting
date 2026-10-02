@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+*.spec
+
+# uv / virtualenv
+.venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+
+# Downloaded schedules
+*.pdf
+!tests/fixtures/*.pdf
+
+# macOS
+.DS_Store
+._*
